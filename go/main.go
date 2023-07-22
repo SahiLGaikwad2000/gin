@@ -5,15 +5,21 @@ import ("github.com/gin-gonic/gin"
 		"database/sql"
 		"fmt"
 		"log"
+		// "github.com/gin-contrib/cors"
 	
 		_ "github.com/go-sql-driver/mysql"
 	)
 
-
+type UserData struct {
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
 
 func main() {
 	router := gin.Default()
 	router.Use(corsMiddleware())
+	// router.Use(cors.Default())
 	// Define your API endpoints here
 	router.POST("/hello", helloHandler)
 
@@ -22,7 +28,11 @@ func main() {
 }
 
 func helloHandler(c *gin.Context) {
-	openconn()
+	
+	var userData UserData;
+	c.ShouldBindJSON(&userData)
+	fmt.Println(userData.Username)
+	openconn(userData.Username,userData.Email,userData.Password)
 	c.JSON(200, gin.H{
 		"message": "Hello, World!",
 	})
@@ -37,7 +47,7 @@ const (
 	dbName     = "gin"
 )
 
-func openconn() {
+func openconn(username,email,password string) {
 	// Open a connection to the database
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@/%s", dbUser, dbPassword, dbName))
 	if err != nil {
@@ -46,7 +56,7 @@ func openconn() {
 	defer db.Close()
 
 	// Insert data into the users table
-	insertData(db, "JohnDoe", "john.doe@example.com", "secretPassword")
+	insertData(db, username, email,password)
 }
 
 func insertData(db *sql.DB, username, email, password string) {
