@@ -64,10 +64,10 @@ const Form = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ">
+    // <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ">
     <div className="min-h-screen flex items-center justify-center ">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold billabong-font text-center mb-6">{isLogin ? 'Login' : 'Sign Up'}</h2>
+        <h2 className="text-3xl text-center mb-6">{isLogin ? 'Login' : 'Sign Up'}</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
         {!isLogin && (<div>
             <input
@@ -108,7 +108,7 @@ const Form = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
           >
            {!isLogin ? 'Sign Up' : 'Login'}
           </button>
@@ -120,7 +120,7 @@ const Form = () => {
         </button>
       </p>
       </div>
-    </div>
+    {/* </div> */}
     <ToastContainer />
     </div>
   );
